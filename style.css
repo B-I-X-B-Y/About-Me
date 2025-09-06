@@ -1,0 +1,389 @@
+/* General Body & Typography */
+:root {
+    --primary-purple: #8a2be2; /* BlueViolet */
+    --dark-purple: #4b0082;   /* Indigo */
+    --light-purple: #9932cc;  /* Orchid */
+    --black-bg: #1a1a1a;
+    --dark-gray: #333333;
+    --light-gray: #cccccc;
+    --text-color: #f0f0f0;
+    --glass-background: rgba(45, 45, 45, 0.2); /* Darker glass effect */
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --hover-glow: 0 0 15px var(--primary-purple), 0 0 30px var(--dark-purple);
+    --text-shadow-glow: 0 0 5px var(--primary-purple);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif; /* A clean, modern sans-serif */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--black-bg) 0%, #0d0d0d 100%); /* Subtle dark gradient */
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll from animation */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Background Animation */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+.background-animation::before,
+.background-animation::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px); /* Adjust blur for desired softness */
+    opacity: 0.4;
+    animation: moveGlow 20s infinite alternate ease-in-out;
+}
+
+.background-animation::before {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary-purple) 0%, transparent 70%);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.background-animation::after {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--light-purple) 0%, transparent 70%);
+    bottom: 15%;
+    right: 15%;
+    animation-delay: 5s;
+}
+
+@keyframes moveGlow {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(20vw, 15vh) scale(1.1); opacity: 0.5; }
+    50% { transform: translate(-10vw, 30vh) scale(0.9); opacity: 0.3; }
+    75% { transform: translate(30vw, -20vh) scale(1.2); opacity: 0.6; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+}
+
+
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif; /* A futuristic font for headings */
+    color: var(--primary-purple);
+    text-shadow: var(--text-shadow-glow);
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+}
+
+h2 {
+    font-size: 2em;
+    border-bottom: 2px solid var(--primary-purple);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    display: inline-block; /* Makes border-bottom only as wide as text */
+}
+
+/* Glassy Card Styling */
+.glassy-card {
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px); /* The magic for the glass effect */
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.glassy-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), var(--hover-glow);
+    transform: translateY(-5px);
+}
+
+/* Layout */
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+/* Header Specifics */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 50px; /* Give space for animation above */
+}
+
+header p {
+    font-size: 1.2em;
+    color: var(--light-gray);
+}
+
+/* Glitch Effect for H1 */
+.glitch {
+    position: relative;
+    color: var(--primary-purple);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black-bg);
+    overflow: hidden;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--light-purple);
+    animation: glitch-anim-before 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--dark-purple);
+    animation: glitch-anim-after 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-before {
+    0% { clip: rect(20px, 9999px, 80px, 0); }
+    25% { clip: rect(100px, 9999px, 120px, 0); }
+    50% { clip: rect(60px, 9999px, 150px, 0); }
+    75% { clip: rect(90px, 9999px, 110px, 0); }
+    100% { clip: rect(30px, 9999px, 70px, 0); }
+}
+
+@keyframes glitch-anim-after {
+    0% { clip: rect(90px, 9999px, 110px, 0); }
+    25% { clip: rect(30px, 9999px, 70px, 0); }
+    50% { clip: rect(10px, 9999px, 50px, 0); }
+    75% { clip: rect(130px, 9999px, 170px, 0); }
+    100% { clip: rect(50px, 9999px, 90px, 0); }
+}
+
+
+/* About Me Section */
+#about {
+    text-align: center;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-purple);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.6); /* Purple glow */
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-text {
+    max-width: 600px;
+    text-align: left;
+}
+
+/* Social Links */
+#social-links {
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Allow icons to wrap on smaller screens */
+    margin-top: 20px;
+}
+
+.social-icon {
+    font-size: 2.5em;
+    color: var(--light-gray);
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    color: var(--primary-purple);
+    transform: translateY(-5px) scale(1.1);
+    filter: drop-shadow(0 0 10px var(--primary-purple));
+}
+
+/* Discord Activity */
+#discord-activity {
+    text-align: center;
+}
+
+.discord-content p {
+    margin: 10px 0;
+}
+
+.discord-content span {
+    font-weight: bold;
+    color: var(--light-purple);
+}
+
+.discord-profile a {
+    color: var(--primary-purple);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.discord-profile a:hover {
+    color: var(--light-purple);
+    text-decoration: underline;
+}
+
+/* The Vault Section */
+#the-vault {
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, var(--primary-purple), var(--dark-purple));
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn i {
+    margin-right: 10px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6), 0 0 25px var(--light-purple);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .glassy-card {
+        padding: 20px;
+        margin: 15px auto;
+    }
+    .profile-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-text {
+        text-align: center;
+    }
+    .social-icons {
+        gap: 20px;
+    }
+    .social-icon {
+        font-size: 2em;
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .glassy-card {
+        margin: 10px auto;
+        padding: 15px;
+    }
+    .social-icons {
+        gap: 15px;
+    }
+    .social-icon {
+        font-size: 1.8em;
+    }
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+}
